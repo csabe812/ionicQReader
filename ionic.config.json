@@ -1,0 +1,7 @@
+{
+  "name": "ionicQReader",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
