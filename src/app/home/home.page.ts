@@ -47,9 +47,9 @@ export class HomePage {
           // camera permission was granted
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
-            console.log('Scanned something', text["result"]);
-            this.showToast(text["result"]);
-            let idd = text["result"];
+            console.log('Scanned something', text);
+            this.showToast(text);
+            let idd = text;
             this.router.navigateByUrl('/place/'+idd);
             this.qrScanner.hide(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
