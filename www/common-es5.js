@@ -401,6 +401,70 @@ var findCheckedOption = function (el, tagName) {
 
 
 
+/***/ }),
+
+/***/ "./src/app/services/place.service.ts":
+/*!*******************************************!*\
+  !*** ./src/app/services/place.service.ts ***!
+  \*******************************************/
+/*! exports provided: PlaceService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PlaceService", function() { return PlaceService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
+
+
+
+var PlaceService = /** @class */ (function () {
+    function PlaceService(afs) {
+        this.afs = afs;
+        this.placeCollection = this.afs.collection('places');
+        this.places = this.placeCollection.snapshotChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (actions) {
+            return actions.map(function (a) {
+                var data = a.payload.doc.data();
+                var id = a.payload.doc.id;
+                return tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({ id: id }, data);
+            });
+        }));
+    }
+    PlaceService.prototype.getPlaces = function () {
+        return this.places;
+    };
+    PlaceService.prototype.getPlace = function (id) {
+        return this.placeCollection.doc(id).valueChanges().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["take"])(1), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (place) {
+            place.id = id;
+            return place;
+        }));
+    };
+    PlaceService.prototype.addPlace = function (place) {
+        return this.placeCollection.add(place);
+    };
+    PlaceService.prototype.updatePlace = function (place) {
+        return this.placeCollection.doc(place.id).update({ name: place.name, quantity: place.quantity });
+    };
+    PlaceService.prototype.deletePlace = function (id) {
+        return this.placeCollection.doc(id).delete();
+    };
+    PlaceService.ctorParameters = function () { return [
+        { type: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"] }
+    ]; };
+    PlaceService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_fire_firestore__WEBPACK_IMPORTED_MODULE_2__["AngularFirestore"]])
+    ], PlaceService);
+    return PlaceService;
+}());
+
+
+
 /***/ })
 
 }]);

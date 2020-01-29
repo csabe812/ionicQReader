@@ -7,7 +7,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>\n            Ionic Blank\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-button color=\"primary\" (click)=\"scanQR()\">Nyomd</ion-button>\n</ion-content>"
+module.exports = "<ion-header>\n    <ion-toolbar>\n        <ion-title>\n            Ionic Blank\n        </ion-title>\n    </ion-toolbar>\n</ion-header>\n\n<ion-content>\n    <ion-button color=\"primary\" (click)=\"scanQR()\">Push to scan</ion-button>\n    <ion-button color=\"primary\" (click)=\"listPlaces()\">List of places</ion-button>\n</ion-content>"
 
 /***/ }),
 
@@ -83,14 +83,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+
 
 
 
 
 let HomePage = class HomePage {
-    constructor(qrScanner, toastController) {
+    constructor(qrScanner, toastController, router) {
         this.qrScanner = qrScanner;
         this.toastController = toastController;
+        this.router = router;
     }
     showToast(msg) {
         this.toast = this.toastController.create({
@@ -104,18 +107,23 @@ let HomePage = class HomePage {
     HideToast() {
         this.toast = this.toastController.dismiss();
     }
+    listPlaces() {
+        this.router.navigateByUrl('/places');
+    }
     scanQR() {
         // Optionally request the permission early
         let ionApp = document.getElementsByTagName('ion-app')[0];
+        ionApp.style.display = 'none';
         this.qrScanner.prepare()
             .then((status) => {
             if (status.authorized) {
                 // camera permission was granted
-                ionApp.style.display = 'none';
                 // start scanning
                 let scanSub = this.qrScanner.scan().subscribe((text) => {
                     console.log('Scanned something', text["result"]);
                     this.showToast(text["result"]);
+                    let idd = text["result"];
+                    this.router.navigateByUrl('/place/' + idd);
                     this.qrScanner.hide(); // hide camera preview
                     scanSub.unsubscribe(); // stop scanning
                     ionApp.style.display = 'block';
@@ -135,7 +143,8 @@ let HomePage = class HomePage {
 };
 HomePage.ctorParameters = () => [
     { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
 ];
 HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
@@ -146,7 +155,7 @@ HomePage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
         styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
 ], HomePage);
 
 

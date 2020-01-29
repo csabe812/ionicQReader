@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/places"></ion-back-button>
+        </ion-buttons>
+        <ion-title>placeDetail</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input [(ngModel)]="place.name"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label position="stacked">Quantity</ion-label>
+        <ion-input [(ngModel)]="place.quantity" rows="8"></ion-input>
+    </ion-item>
+</ion-content>
+
+<ion-footer *ngIf="!place.id">
+    <ion-toolbar color="success">
+        <ion-button expand="full" fill="clear" color="light" (click)="addPlace()">
+            <ion-icon name="checkmark" slot="start">
+
+            </ion-icon>
+            Add place
+        </ion-button>
+    </ion-toolbar>
+</ion-footer>
+
+<ion-footer *ngIf="place.id">
+    <ion-row no-padding text-center>
+        <ion-col size="6">
+            <ion-button expand="block" fill="outline" color="danger" (click)="deletePlace()">
+                <ion-icon name="trash" slot="start">
+                </ion-icon>
+                Delete
+            </ion-button>
+        </ion-col>
+        <ion-col size="6">
+            <ion-button expand="block" fill="solid" color="success" (click)="updatePlace()">
+                <ion-icon name="save" slot="start">
+                </ion-icon>
+                Update
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-footer>

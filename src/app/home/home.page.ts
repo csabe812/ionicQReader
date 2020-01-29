@@ -1,6 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { QRScanner, QRScannerStatus } from '@ionic-native/qr-scanner/ngx';
 import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @NgModule({
   imports: [QRScanner]
@@ -15,7 +16,7 @@ export class HomePage {
 
   toast: any;
 
-  constructor(private qrScanner: QRScanner, private toastController: ToastController) {
+  constructor(private qrScanner: QRScanner, private toastController: ToastController, private router: Router) {
 
   }
 
@@ -32,18 +33,24 @@ export class HomePage {
     this.toast = this.toastController.dismiss();
   }
 
+  listPlaces() {
+    this.router.navigateByUrl('/places');
+  }
+
   scanQR() {
     // Optionally request the permission early
     let ionApp = document.getElementsByTagName('ion-app')[0];
+    ionApp.style.display = 'none';
     this.qrScanner.prepare()
       .then((status: QRScannerStatus) => {
         if (status.authorized) {
           // camera permission was granted
-          ionApp.style.display = 'none';
           // start scanning
           let scanSub = this.qrScanner.scan().subscribe((text: string) => {
             console.log('Scanned something', text["result"]);
             this.showToast(text["result"]);
+            let idd = text["result"];
+            this.router.navigateByUrl('/place/'+idd);
             this.qrScanner.hide(); // hide camera preview
             scanSub.unsubscribe(); // stop scanning
             ionApp.style.display = 'block';

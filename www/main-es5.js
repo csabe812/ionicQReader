@@ -470,6 +470,18 @@ __webpack_require__.r(__webpack_exports__);
 var routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', loadChildren: function () { return __webpack_require__.e(/*! import() | home-home-module */ "home-home-module").then(__webpack_require__.bind(null, /*! ./home/home.module */ "./src/app/home/home.module.ts")).then(function (m) { return m.HomePageModule; }); } },
+    {
+        path: 'places',
+        loadChildren: function () { return Promise.all(/*! import() | pages-place-list-place-list-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-place-list-place-list-module")]).then(__webpack_require__.bind(null, /*! ./pages/place-list/place-list.module */ "./src/app/pages/place-list/place-list.module.ts")).then(function (m) { return m.PlaceListPageModule; }); }
+    },
+    {
+        path: 'place',
+        loadChildren: function () { return Promise.all(/*! import() | pages-place-detail-place-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-place-detail-place-detail-module")]).then(__webpack_require__.bind(null, /*! ./pages/place-detail/place-detail.module */ "./src/app/pages/place-detail/place-detail.module.ts")).then(function (m) { return m.PlaceDetailPageModule; }); }
+    },
+    {
+        path: 'place/:id',
+        loadChildren: function () { return Promise.all(/*! import() | pages-place-detail-place-detail-module */[__webpack_require__.e("common"), __webpack_require__.e("pages-place-detail-place-detail-module")]).then(__webpack_require__.bind(null, /*! ./pages/place-detail/place-detail.module */ "./src/app/pages/place-detail/place-detail.module.ts")).then(function (m) { return m.PlaceDetailPageModule; }); }
+    },
 ];
 var AppRoutingModule = /** @class */ (function () {
     function AppRoutingModule() {
@@ -576,6 +588,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
 /* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
+/* harmony import */ var _angular_fire__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/fire */ "./node_modules/@angular/fire/index.js");
+/* harmony import */ var src_environments_environment__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/environments/environment */ "./src/environments/environment.ts");
+/* harmony import */ var _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @angular/fire/firestore */ "./node_modules/@angular/fire/firestore/index.js");
+
+
+
 
 
 
@@ -593,12 +611,16 @@ var AppModule = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
             declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
             entryComponents: [],
-            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"]],
+            imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"],
+                _angular_fire__WEBPACK_IMPORTED_MODULE_10__["AngularFireModule"].initializeApp(src_environments_environment__WEBPACK_IMPORTED_MODULE_11__["environment"].firebase),
+                _angular_fire__WEBPACK_IMPORTED_MODULE_10__["AngularFireModule"]],
             providers: [
                 _ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"],
                 _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"],
                 { provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"], useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"] },
-                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"]
+                _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_9__["QRScanner"],
+                { provide: _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__["FirestoreSettingsToken"], useValue: {} },
+                _angular_fire_firestore__WEBPACK_IMPORTED_MODULE_12__["AngularFirestore"]
             ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]],
         })
@@ -624,7 +646,17 @@ __webpack_require__.r(__webpack_exports__);
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 var environment = {
-    production: false
+    production: false,
+    firebase: {
+        apiKey: "AIzaSyCqVyXMIyocvwtRYEhKar9qeou-65sUqPQ",
+        authDomain: "buggy-89796.firebaseapp.com",
+        databaseURL: "https://buggy-89796.firebaseio.com",
+        projectId: "buggy-89796",
+        storageBucket: "buggy-89796.appspot.com",
+        messagingSenderId: "753804118470",
+        appId: "1:753804118470:web:4054bcc02be0f1274a8ac7",
+        measurementId: "G-2XHYLLSFHS"
+    }
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -671,7 +703,7 @@ Object(_angular_platform_browser_dynamic__WEBPACK_IMPORTED_MODULE_1__["platformB
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\Elitebook\Documents\ionicQReader\src\main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! C:\Users\Elitebook\ionicQReader\src\main.ts */"./src/main.ts");
 
 
 /***/ })
