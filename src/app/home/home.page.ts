@@ -1,20 +1,33 @@
 import { Component, NgModule } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+
+
+const options: BarcodeScannerOptions = {
+  showFlipCameraButton: true,
+  showTorchButton: true,
+  torchOn: false,
+  prompt: 'Scan it my friend',
+  resultDisplayDuration: 0,
+  disableSuccessBeep: true
+};
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
+
+
+
 export class HomePage {
 
   toast: any;
 
-  constructor(private barcodeScanner: BarcodeScanner, private toastController: ToastController, private router: Router) {
+  
 
-  }
+  constructor(private barcodeScanner: BarcodeScanner, private toastController: ToastController, private router: Router) {}
 
   showToast(msg) {
     this.toast = this.toastController.create({
@@ -35,7 +48,7 @@ export class HomePage {
 
   scanQR() {
     
-    this.barcodeScanner.scan().then(barcodeData => {
+    this.barcodeScanner.scan(options).then(barcodeData => {
       console.log('Barcode data', barcodeData);
       this.router.navigateByUrl('/place/'+barcodeData.text);
      }).catch(err => {
