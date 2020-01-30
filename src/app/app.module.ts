@@ -8,12 +8,10 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
-import { QRScanner } from '@ionic-native/qr-scanner/ngx';
-
 import { AngularFireModule } from '@angular/fire'
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule, FirestoreSettingsToken, AngularFirestore } from '@angular/fire/firestore';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,9 +23,8 @@ import { AngularFirestoreModule, FirestoreSettingsToken, AngularFirestore } from
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    QRScanner,
-    {provide:FirestoreSettingsToken, useValue:{}},
-    AngularFirestore
+    { provide: FirestoreSettingsToken, useValue: {} },
+    AngularFirestore, BarcodeScanner
   ],
   bootstrap: [AppComponent],
 })

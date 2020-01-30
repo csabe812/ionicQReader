@@ -87,14 +87,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic-native/qr-scanner/ngx */ "./node_modules/@ionic-native/qr-scanner/ngx/index.js");
 /* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/dist/fesm5.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ionic-native/barcode-scanner/ngx */ "./node_modules/@ionic-native/barcode-scanner/ngx/index.js");
+
 
 
 
 
 
 var HomePage = /** @class */ (function () {
-    function HomePage(qrScanner, toastController, router) {
-        this.qrScanner = qrScanner;
+    function HomePage(barcodeScanner, toastController, router) {
+        this.barcodeScanner = barcodeScanner;
         this.toastController = toastController;
         this.router = router;
     }
@@ -114,38 +116,14 @@ var HomePage = /** @class */ (function () {
         this.router.navigateByUrl('/places');
     };
     HomePage.prototype.scanQR = function () {
-        var _this = this;
-        // Optionally request the permission early
-        var ionApp = document.getElementsByTagName('ion-app')[0];
-        ionApp.style.display = 'none';
-        this.qrScanner.prepare()
-            .then(function (status) {
-            if (status.authorized) {
-                // camera permission was granted
-                // start scanning
-                var scanSub_1 = _this.qrScanner.scan().subscribe(function (text) {
-                    console.log('Scanned something', text["result"]);
-                    _this.showToast(text["result"]);
-                    var idd = text["result"];
-                    _this.router.navigateByUrl('/place/' + idd);
-                    _this.qrScanner.hide(); // hide camera preview
-                    scanSub_1.unsubscribe(); // stop scanning
-                    ionApp.style.display = 'block';
-                });
-            }
-            else if (status.denied) {
-                // camera permission was permanently denied
-                // you must use QRScanner.openSettings() method to guide the user to the settings page
-                // then they can grant the permission from there
-            }
-            else {
-                // permission was denied, but not permanently. You can ask for permission again at a later time.
-            }
-        })
-            .catch(function (e) { return console.log('Error is', e); });
+        this.barcodeScanner.scan().then(function (barcodeData) {
+            console.log('Barcode data', barcodeData);
+        }).catch(function (err) {
+            console.log('Error', err);
+        });
     };
     HomePage.ctorParameters = function () { return [
-        { type: _ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"] },
+        { type: _ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["BarcodeScanner"] },
         { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"] },
         { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"] }
     ]; };
@@ -158,7 +136,7 @@ var HomePage = /** @class */ (function () {
             template: __webpack_require__(/*! raw-loader!./home.page.html */ "./node_modules/raw-loader/index.js!./src/app/home/home.page.html"),
             styles: [__webpack_require__(/*! ./home.page.scss */ "./src/app/home/home.page.scss")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_qr_scanner_ngx__WEBPACK_IMPORTED_MODULE_2__["QRScanner"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_native_barcode_scanner_ngx__WEBPACK_IMPORTED_MODULE_5__["BarcodeScanner"], _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ToastController"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], HomePage);
     return HomePage;
 }());
