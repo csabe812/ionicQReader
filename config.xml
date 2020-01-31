@@ -45,6 +45,9 @@
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
     <platform name="ios">
+        <edit-config file="*=Info.plist" mode="merge" target="NSCameraUsageDescription">
+            <string>To scan QR Codes</string>
+        </edit-config>
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
@@ -99,5 +102,5 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^4.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <allow-navigation href="http://localhost:8100" sessionid="3645c448" />
+    <allow-navigation href="http://localhost:8100" sessionid="dfdb66c8" />
 </widget>
