@@ -12,10 +12,13 @@
         <ion-label position="stacked">Name</ion-label>
         <ion-input [(ngModel)]="place.name"></ion-input>
     </ion-item>
-    <ion-item>
-        <ion-label position="stacked">Quantity</ion-label>
-        <ion-input [(ngModel)]="place.quantity" rows="8"></ion-input>
-    </ion-item>
+    <ion-list>
+        <ion-item>
+            <ion-range color="primary" pin="true" min="1" max="10" [(ngModel)]="place.onetoten">
+                <div slot="end" *ngIf="place.onetoten > 0">{{place.onetoten}}</div>
+            </ion-range>
+        </ion-item>
+    </ion-list>
 </ion-content>
 
 <ion-footer *ngIf="!place.id">
