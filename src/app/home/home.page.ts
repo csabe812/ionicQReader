@@ -2,6 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import { PlaceService } from '../services/place.service';
 
 
 const options: BarcodeScannerOptions = {
@@ -27,7 +28,7 @@ export class HomePage {
 
   
 
-  constructor(private barcodeScanner: BarcodeScanner, private toastController: ToastController, private router: Router) {}
+  constructor(private barcodeScanner: BarcodeScanner, private toastController: ToastController, private router: Router, private placeService: PlaceService) {}
 
   showToast(msg) {
     this.toast = this.toastController.create({
@@ -55,6 +56,10 @@ export class HomePage {
          console.log('Error', err);
      });
 
+  }
+
+  addTenPlace() {
+    this.placeService.addTenPlaces();
   }
 
 }
