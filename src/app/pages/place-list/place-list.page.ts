@@ -9,12 +9,11 @@ import { Place, PlaceService } from 'src/app/services/place.service';
 })
 export class PlaceListPage implements OnInit {
 
-  private places :Observable<Place[]>;
+  private places : Observable<Place[]>;
   constructor(private placeService: PlaceService) { }
 
   ngOnInit() {
     this.places = this.placeService.getPlaces();
-    console.log(this.places);
   }
 
 }

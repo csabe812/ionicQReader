@@ -13,7 +13,7 @@ export class PlaceDetailPage implements OnInit {
 
   place: Place = {
     name: '',
-    quantity: ''
+    onetoten: 0
   }
 
   constructor(private activatedRoute: ActivatedRoute, private placeService: PlaceService
