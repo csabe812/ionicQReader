@@ -6,7 +6,7 @@ import { map, take } from 'rxjs/operators';
 export interface Place {
   id?: string,
   name: string,
-  quantity: string
+  onetoten: number
 }
 
 @Injectable({
@@ -47,10 +47,22 @@ export class PlaceService {
   }
 
   updatePlace(place: Place): Promise<void> {
-    return this.placeCollection.doc(place.id).update({ name: place.name, quantity: place.quantity });
+    return this.placeCollection.doc(place.id).update({ name: place.name, onetoten: place.onetoten });
   }
 
   deletePlace(id: string): Promise<void> {
     return this.placeCollection.doc(id).delete();
   }
+
+  /**
+   * This method generates 1000 places filled with string.empty and 0
+   */
+  addTenPlaces() : Promise<void> {
+    for(var i = 0; i < 1000; i++) {
+      let place: Place = { name : '', onetoten: 0 };
+      this.placeCollection.add(place);
+    }
+    return;
+  }
+  
 }
