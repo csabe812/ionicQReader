@@ -35,7 +35,6 @@ export class HomePage {
       message: msg,
       duration: 2000
     }).then((toastData) => {
-      console.log(toastData);
       toastData.present();
     });
   }
@@ -50,7 +49,6 @@ export class HomePage {
   scanQR() {
     
     this.barcodeScanner.scan(options).then(barcodeData => {
-      console.log('Barcode data', barcodeData);
       this.router.navigateByUrl('/place/'+barcodeData.text);
      }).catch(err => {
          console.log('Error', err);

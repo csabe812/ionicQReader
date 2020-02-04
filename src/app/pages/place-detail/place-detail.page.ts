@@ -23,12 +23,14 @@ export class PlaceDetailPage implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
       this.placeService.getPlace(id).subscribe(p => {
-        this.place = p;
+        if (p != null && p.id != null && p.id.length > 0) {
+          this.place = p;
+        }
+        else {
+          this.showToast(`Given place with id ${ id } does not exist`)
+          this.router.navigateByUrl('/');
+        }
       });
-    }
-    else {
-      this.showToast("Not a valid QR Code or ID");
-      this.router.navigateByUrl('/places');
     }
   }
 

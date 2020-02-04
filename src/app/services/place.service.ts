@@ -36,8 +36,13 @@ export class PlaceService {
     return this.placeCollection.doc<Place>(id).valueChanges().pipe(
       take(1),
       map(place => {
-        place.id = id;
-        return place;
+        if(place == null) {
+          return null;
+        }
+        else {
+          place.id = id;
+          return place;
+        }
       })
     )
   }
