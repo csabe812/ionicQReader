@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/places"></ion-back-button>
         </ion-buttons>
-        <ion-title>placeDetail</ion-title>
+        <ion-title>Details</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -13,6 +13,9 @@
         <ion-input [(ngModel)]="place.name"></ion-input>
     </ion-item>
     <ion-list>
+        <ion-list-header>
+            State of exterminator
+        </ion-list-header>
         <ion-item>
             <ion-range color="primary" pin="true" min="1" max="10" [(ngModel)]="place.onetoten">
                 <div slot="end" *ngIf="place.onetoten > 0">{{place.onetoten}}</div>
