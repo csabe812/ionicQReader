@@ -26,6 +26,10 @@ export class PlaceDetailPage implements OnInit {
         this.place = p;
       });
     }
+    else {
+      this.showToast("Not a valid QR Code or ID");
+      this.router.navigateByUrl('/places');
+    }
   }
 
   addPlace() {
